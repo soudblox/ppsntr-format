@@ -9,25 +9,64 @@ if (button && result) {
 		const input = document.querySelector("#input");
 		/** @type {HTMLInputElement | null} */
 		const copyornot = document.querySelector("#copy");
+		/** @type {HTMLButtonElement | null} */
+		const auto = document.querySelector("#auto");
 		const value = input?.value;
-		console.log(value);
-
 		if (!value) {
 			return alert("empty");
 		};
-		const text = DOMPurify.sanitize(value);
-		console.log(text);
+		const query = DOMPurify.sanitize(value);
 
-		const body = await fetch("/format", {
-			method: "POST",
-			body: JSON.stringify({ text }),
-			headers: { "Content-Type": "application/json" }
-		});
-		const results = await body.text();
+		if (auto?.disabled) {
+			const body = await fetch("/searchFormatted", {
+				method: "POST",
+				body: JSON.stringify({ query }),
+				headers: { "Content-Type": "application/json" }
+			});
+			const results = await body.text();
 
-		if (copyornot?.checked) navigator.clipboard.writeText(results);
-		result.textContent = results || "err";
+			if (copyornot?.checked) navigator.clipboard.writeText(results);
+			result.textContent = results || "err";
+		} else {
+			const body = await fetch("/format", {
+				method: "POST",
+				body: JSON.stringify({ text: query }),
+				headers: { "Content-Type": "application/json" }
+			});
+			const results = await body.text();
+
+			if (copyornot?.checked) navigator.clipboard.writeText(results);
+			result.textContent = results || "err";
+		}
 	}))
 } else {
 	console.log(button, result)
+}
+
+document.querySelector("#manual")?.addEventListener("click", () => toggleMode(true));
+document.querySelector("#auto")?.addEventListener("click", () => toggleMode(false));
+
+/** @param {Boolean} isManual */
+function toggleMode(isManual) {
+	/** @type {HTMLButtonElement | null} */
+	const auto = document.querySelector("#auto");
+	/** @type {HTMLButtonElement | null} */
+	const manual = document.querySelector("#manual");
+	/** @type {HTMLTextAreaElement | null} */
+	const input = document.querySelector("#input");
+
+	if (!auto || !manual || !input) return;
+	if (isManual) {
+		input.value = "";
+		auto.disabled = false;
+		manual.disabled = true;
+		input.rows = 10;
+		input.placeholder = "Lirik";
+	} else {
+		input.value = "";
+		auto.disabled = true;
+		manual.disabled = false;
+		input.rows = 1;
+		input.placeholder = "Nomor PS";
+	}
 }

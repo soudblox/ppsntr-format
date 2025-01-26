@@ -12,13 +12,17 @@
 		#result {
 			white-space: pre-wrap;
 		}
+
+		textarea {
+			resize: none;
+		}
 	</style>
 </head>
 
 <body>
-	<b>propresenter formatter type shi</b> <br>
-	<p>masukin teks sini</p>
-	<textarea id="input" cols="40" rows="10"></textarea>
+	<b>propresenter formatter type shi</b> <br><br>
+	<button id="manual">Manual</button> <button id="auto" disabled>Auto</button><br><br>
+	<textarea id="input" cols="40" rows="1" placeholder="Nomor PS"></textarea>
 	<input type="checkbox" id="copy" name="copy">
 	<label for="copy">Automatically copy to clipboard?</label><br>
 	<button id="button">format</button> <br><br>
