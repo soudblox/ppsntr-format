@@ -4,29 +4,32 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>cool</title>
+	<title>Lyrics Formatter</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.3/purify.min.js"
 		integrity="sha512-Ll+TuDvrWDNNRnFFIM8dOiw7Go7dsHyxRp4RutiIFW/wm3DgDmCnRZow6AqbXnCbpWu93yM1O34q+4ggzGeXVA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<style>
-		#result {
-			white-space: pre-wrap;
-		}
-
-		textarea {
-			resize: none;
-		}
-	</style>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-	<b>propresenter formatter type shi</b> <br><br>
-	<button id="manual">Manual</button> <button id="auto" disabled>Auto</button><br><br>
-	<textarea id="input" cols="40" rows="1" placeholder="Nomor PS"></textarea>
-	<input type="checkbox" id="copy" name="copy">
-	<label for="copy">Automatically copy to clipboard?</label><br>
-	<button id="button">format</button> <br><br>
-	<b id="result"></b>
+	<div class="container">
+		<h1>Lyrics Formatter</h1>
+		<div class="buttons">
+			<button id="manual">Manual</button>
+			<button id="auto" disabled>Auto</button>
+		</div>
+		<textarea id="input" cols="40" rows="1" placeholder="Place song number here..."></textarea>
+		<div class="checkbox-container">
+			<input type="checkbox" id="copy" name="copy">
+			<label for="copy">Auto-copy formatted lyrics</label>
+		</div>
+		<button id="button">Format Lyrics</button>
+		<br><br>
+		<div id="result"></div>
+	</div>
 
 	<script src="script.js"></script>
 </body>
