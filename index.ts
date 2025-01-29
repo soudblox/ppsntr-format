@@ -5,7 +5,7 @@ import morgan from "morgan";
 import * as cheerio from "cheerio";
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT || "3000");
 
 app.use(morgan("dev"));
 app.use(express.json());
